@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  txt2epub:
+    build: .
+    container_name: txt2epub
+    volumes:
+      # 挂载输入目录（存放要转换的txt文件）
+      - ./input:/app/input
+      # 挂载输出目录（存放生成的epub/kepub文件）
+      - ./output:/app/output
+      # 挂载当前目录（包含脚本和配置）
+      - .:/app
+    working_dir: /app
+    # 启动自动监控服务
+    command: python auto_converter.py
+    restart: unless-stopped
